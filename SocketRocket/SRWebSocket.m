@@ -14,7 +14,6 @@
 //   limitations under the License.
 //
 
-
 #import "SRWebSocket.h"
 
 #if TARGET_OS_IPHONE
@@ -356,18 +355,9 @@ static __strong NSData *CRLFCRLF;
     _selfRetain = self;
     
     NSInteger port = _url.port.integerValue;
-    if (port == 0) {
-        if (!_secure) {
-            port = 80;
-        } else {
-            port = 443;
-        }
-    }
-
+    port = 443;
     [self _connectToHost:_url.host port:port];
 }
-
-
 
 - (BOOL)_checkHandshake:(CFHTTPMessageRef)httpMessage;
 {
@@ -422,7 +412,6 @@ static __strong NSData *CRLFCRLF;
         }
     });
 }
-
 
 - (void)_readHTTPHeader;
 {
@@ -651,7 +640,6 @@ static __strong NSData *CRLFCRLF;
         [self.delegate webSocket:self didReceiveMessage:message];
     });
 }
-
 
 static inline BOOL closeCodeIsValid(int closeCode) {
     if (closeCode < 1000) {
@@ -1539,5 +1527,3 @@ static inline int32_t validate_dispatch_data_partial_string(NSData *data) {
 }
 
 #endif
-
-
